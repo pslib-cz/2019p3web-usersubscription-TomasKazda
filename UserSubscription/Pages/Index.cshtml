@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@* TODO: display flash messages for success and failure*@
+
+<div class="jumbotron">
+    <h1 class="display-4">Vítejte!</h1>
+    <p class="lead">Jsme rádi, že Vás naše nová hra zaujala.</p>
+    <hr class="my-4">
+    <p>Pokud chcete o ní být průběžně informování, můžete se přihlásit k odběru emailového občasníku.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" asp-page="Subscription" role="button">Přihlásit k odběru</a>
+    </p>
+</div>
+<p>Přehled všech přihlášek <a asp-page="List">najdete v seznamu</a> (ale koukat do něj smějí jen správci).</p>
