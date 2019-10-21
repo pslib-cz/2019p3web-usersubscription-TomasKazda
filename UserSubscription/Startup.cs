@@ -34,6 +34,11 @@ namespace UserSubscription
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<UserSubscription.Models.SubsriptionDbContext>(o =>
+            {
+                o.UseSqlite(Configuration.GetConnectionString("SubscriptionDb"));
+            });
+
             services.AddSingleton<IRandomStringGenerator,RandomStringGenerator>();
             services.AddSingleton<ISubscriptionStorage, SubscriptionStorage>();
             services.AddSingleton<CountriesProvider>();
