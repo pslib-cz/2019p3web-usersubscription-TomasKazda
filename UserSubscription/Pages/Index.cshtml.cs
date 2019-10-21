@@ -9,7 +9,11 @@ namespace UserSubscription.Pages
 {
     public class IndexModel : PageModel
     {
-        /* TODO: Messages mechanics */
+        [TempData]
+        public string ErrorMessage { get; set; }
+        [TempData]
+        public string SuccessMessage { get; set; }
+
         public void OnGet()
         {
 

@@ -15,16 +15,30 @@ namespace UserSubscription.Pages
         private ISubscriptionStorage _ss;
         private CountriesProvider _cp;
 
-        /* TODO: Messages mechanics */
-        /* TODO: Select property for coutries */
+        [TempData]
+        public string ErrorMessage { get; set; }
+        [TempData]
+        public string SuccessMessage { get; set; }
+
         [BindProperty]
         public Subscription Input { get; set; }
+
+        public List<SelectListItem> Countries { get; set; }
 
         public SubscriptionModel(ISubscriptionStorage ss, CountriesProvider cp)
         {
             _ss = ss;
             _cp = cp;
-            /* TODO: adding countries to select */ 
+
+            Countries = new List<SelectListItem>();
+            foreach (var item in cp.EFTA)
+            {
+                Countries.Add(new SelectListItem(text: item.Value, value: item.Key));
+            }
+            foreach (var item in cp.EUMembers)
+            {
+                Countries.Add(new SelectListItem(text: item.Value, value: item.Key));
+            }
         }
 
         public void OnGet()
@@ -34,13 +48,16 @@ namespace UserSubscription.Pages
 
         public IActionResult OnPost()
         {
-            /* TODO Send confirmation messages "Registrace se podařila." "Registrace se nepodařila." */
+            
             if (ModelState.IsValid)
             {
                 _ss.Add(Input);
+                SuccessMessage = $"{Input.Email} byl přidán k odběru";
                 
                 return RedirectToPage("Index");
             }
+            ErrorMessage = $"Něco se nepovedlo - sleduj výpis ;-)";
+            SuccessMessage = null;
             return Page();
         }
     }
