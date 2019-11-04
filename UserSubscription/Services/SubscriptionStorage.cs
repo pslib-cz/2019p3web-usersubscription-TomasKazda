@@ -9,9 +9,11 @@ namespace UserSubscription.Services
     public class SubscriptionStorage : ISubscriptionStorage
     {
         private IRandomStringGenerator _rsg;
-        public SubscriptionStorage(IRandomStringGenerator rsg)
+        private SubscriptionContext _db;
+        public SubscriptionStorage(IRandomStringGenerator rsg, SubscriptionContext db)
         {
             _rsg = rsg;
+            _db = db;
         }
 
         public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();

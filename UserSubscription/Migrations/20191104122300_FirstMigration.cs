@@ -2,7 +2,7 @@
 
 namespace UserSubscription.Migrations
 {
-    public partial class First : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,6 +25,11 @@ namespace UserSubscription.Migrations
                 {
                     table.PrimaryKey("PK_Subscriptions", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Subscriptions",
+                columns: new[] { "Id", "Agreed", "ConfirmationCode", "Confirmed", "CountryCode", "Email", "FirstName", "Gender", "LastName" },
+                values: new object[] { 1, true, "FGC12556", true, "CZ", "john@doe.com", "John", 0, "Doe" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserSubscription.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace UserSubscription
 {
@@ -31,14 +33,15 @@ namespace UserSubscription
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<UserSubscription.Models.SubsriptionDbContext>(o =>
-            {
-                o.UseSqlite(Configuration.GetConnectionString("SubscriptionDb"));
-            });
+            services.AddDbContext<UserSubscription.Models.SubscriptionContext>(
+                o =>
+                {
+                    o.UseSqlite(Configuration.GetConnectionString("SubscriptionDb"));
+                });
 
-            services.AddSingleton<IRandomStringGenerator,RandomStringGenerator>();
-            services.AddSingleton<ISubscriptionStorage, SubscriptionStorage>();
-            services.AddSingleton<CountriesProvider>();
+            services.AddTransient<IRandomStringGenerator,RandomStringGenerator>();
+            services.AddTransient<ISubscriptionStorage, SubscriptionStorage>();
+            services.AddTransient<CountriesProvider>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
