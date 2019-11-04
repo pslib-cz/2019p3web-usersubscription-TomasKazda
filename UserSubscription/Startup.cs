@@ -9,9 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserSubscription.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
-
 
 namespace UserSubscription
 {
@@ -42,7 +39,7 @@ namespace UserSubscription
             services.AddSingleton<IRandomStringGenerator,RandomStringGenerator>();
             services.AddSingleton<ISubscriptionStorage, SubscriptionStorage>();
             services.AddSingleton<CountriesProvider>();
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
