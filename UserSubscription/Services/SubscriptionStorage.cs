@@ -16,14 +16,26 @@ namespace UserSubscription.Services
             _db = db;
         }
 
-        public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
+        public List<Subscription> Subscriptions
+        {
+            get
+            {
+                return _db.Subscriptions.ToList();
+            }
+            set
+            {
+                var temp = value;
+            }
+        }
 
         public void Add(Subscription subscription)
         {
-            
+
             subscription.Confirmed = false;
             subscription.ConfirmationCode = _rsg.Next(10);
-            Subscriptions.Add(subscription);
+
+            _db.Subscriptions.Add(subscription);
+            _db.SaveChanges();
         }
     }
 }
